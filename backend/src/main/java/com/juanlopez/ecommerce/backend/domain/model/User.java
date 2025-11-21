@@ -21,5 +21,6 @@ public class User {
     private String password;
     private UserType userType;
     private LocalDateTime dateCreated;
+    private LocalDateTime dateUpdated;
 
 }
