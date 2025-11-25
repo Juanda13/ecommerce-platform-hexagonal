@@ -1,4 +1,4 @@
-package com.juanlopez.ecommerce.backend.infrastructure;
+package com.juanlopez.ecommerce.backend.infrastructure.entity;
 
 import com.juanlopez.ecommerce.backend.domain.model.UserType;
 import jakarta.persistence.*;

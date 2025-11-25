@@ -1,7 +1,7 @@
 package com.juanlopez.ecommerce.backend.infrastructure.mapper;
 
 import com.juanlopez.ecommerce.backend.domain.model.User;
-import com.juanlopez.ecommerce.backend.infrastructure.UserEntity;
+import com.juanlopez.ecommerce.backend.infrastructure.entity.UserEntity;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
