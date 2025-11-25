@@ -7,6 +7,11 @@ public interface ICategoryRepository {
     Category save(Category category);
     Iterable<Category> findAll();
     Category findById(Integer id);
+
+    /**
+     * Deletes a category by its ID.
+     * Implemented in the infrastructure layer.
+     */
     void deleteById(Integer id);
 
 }
