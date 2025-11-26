@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * Domain model representing a product category within the e-commerce platform.
  * <p>
@@ -24,5 +26,15 @@ public class Category {
      * Display name of the category.
      */
     private String name;
+
+    /**
+     * Date and time when the category was created.
+     */
+    private LocalDateTime dateCreated;
+
+    /**
+     * Date and time when the category information was last updated.
+     */
+    private LocalDateTime dateUpdated;
 
 }

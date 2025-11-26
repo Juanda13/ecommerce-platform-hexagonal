@@ -3,13 +3,15 @@ package com.juanlopez.ecommerce.backend.infrastructure.rest;
 import com.juanlopez.ecommerce.backend.application.CategoryService;
 import com.juanlopez.ecommerce.backend.domain.model.Category;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * REST controller for managing {@link Category} resources.
  * <p>
  * Provides endpoints to create, retrieve, and delete categories.
- * Delegates business logic to {@link CategoryService}.
+ * Uses {@link CategoryService} to handle business logic.
  */
 @RestController
 @RequestMapping("api/v1/admin/categories")
@@ -30,43 +32,45 @@ public class CategoryController {
     /**
      * Creates a new category or updates an existing one.
      *
-     * @param category the category to create or update
-     * @return the created or updated category
+     * @param category the category data to create or update
+     * @return a {@link ResponseEntity} with the persisted category and HTTP 201 status
      */
     @PostMapping
-    public Category save(@RequestBody Category category) {
-        return categoryService.save(category);
+    public ResponseEntity<Category> save(@RequestBody Category category) {
+        return new ResponseEntity<>(categoryService.save(category), HttpStatus.CREATED);
     }
 
     /**
      * Retrieves all categories.
      *
-     * @return an iterable of all categories
+     * @return a {@link ResponseEntity} containing the list of categories with HTTP 200 status
      */
     @GetMapping
-    public Iterable<Category> findAll() {
-        return categoryService.findAll();
+    public ResponseEntity<Iterable<Category>> findAll() {
+        return ResponseEntity.ok(categoryService.findAll());
     }
 
     /**
      * Retrieves a category by its ID.
      *
-     * @param id the ID of the category
-     * @return the category with the given ID
+     * @param id the ID of the category to fetch
+     * @return a {@link ResponseEntity} containing the category with HTTP 200 status
      */
     @GetMapping("/{id}")
-    public Category findById(@PathVariable Integer id) {
-        return categoryService.findById(id);
+    public ResponseEntity<Category> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok(categoryService.findById(id));
     }
 
     /**
      * Deletes a category by its ID.
      *
      * @param id the ID of the category to delete
+     * @return a {@link ResponseEntity} with HTTP 200 status upon successful deletion
      */
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Integer id) {
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable Integer id) {
         categoryService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }
