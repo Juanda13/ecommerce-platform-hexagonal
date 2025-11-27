@@ -4,6 +4,7 @@ import com.juanlopez.ecommerce.backend.domain.model.Product;
 import com.juanlopez.ecommerce.backend.infrastructure.entity.ProductEntity;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * MapStruct mapper for converting between domain {@link Product} objects
@@ -21,10 +22,15 @@ public interface ProductMapper {
 
     /**
      * Converts a {@link ProductEntity} into a domain {@link Product}.
+     * <p>
+     * Maps the nested {@code userEntity.id} and {@code categoryEntity.id}
+     * into the corresponding domain identifiers.
      *
      * @param productEntity the JPA entity to convert
      * @return the corresponding domain model representation
      */
+    @Mapping(source = "userEntity.id", target = "userId")
+    @Mapping(source = "categoryEntity.id", target = "categoryId")
     Product toProduct(ProductEntity productEntity);
 
     /**
