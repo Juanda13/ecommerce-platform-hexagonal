@@ -66,15 +66,20 @@ public class CategoryCrudRepositoryImpl implements ICategoryRepository {
     }
 
     /**
-     * Deletes a category by its ID.
+     * Deletes a category by its unique identifier.
      * <p>
-     * Delegates the deletion to the underlying Spring Data repository.
-     * This method is intentionally empty in terms of logic beyond delegation.
+     * Before deletion, the method verifies that the category exists in the database.
+     * If no product is found with the given ID, a {@link RuntimeException} is thrown.
      *
-     * @param id the ID of the category to delete
+     * @param id the identifier of the category to delete
+     * @throws RuntimeException if the category does not exist
      */
     @Override
     public void deleteById(Integer id) {
+        // Validate that the category exists before deleting
+        iCategoryCrudRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Categoría con id: " + id + " no existe.")
+        );
         iCategoryCrudRepository.deleteById(id);
     }
     
