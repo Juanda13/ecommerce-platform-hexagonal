@@ -15,7 +15,7 @@ public enum OrderState {
      * Indicates that the order has been cancelled and will no longer proceed
      * through the fulfillment workflow.
      */
-    CACELLED,
+    CANCELLED,
 
     /**
      * Indicates that the order has been confirmed and is valid for continued
