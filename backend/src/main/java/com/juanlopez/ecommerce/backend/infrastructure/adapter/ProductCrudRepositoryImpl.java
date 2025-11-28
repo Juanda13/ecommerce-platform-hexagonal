@@ -2,7 +2,7 @@ package com.juanlopez.ecommerce.backend.infrastructure.adapter;
 
 import com.juanlopez.ecommerce.backend.domain.model.Product;
 import com.juanlopez.ecommerce.backend.domain.port.IProductRepository;
-import com.juanlopez.ecommerce.backend.infrastructure.mapper.ProductMapper;
+import com.juanlopez.ecommerce.backend.infrastructure.mapper.IProductMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * <p>
  * Acts as a bridge between the domain layer and the underlying persistence mechanism.
  * Uses Spring Data's {@link IProductCrudRepository} for database operations and
- * {@link ProductMapper} to map between domain models and JPA entities, ensuring a clear
+ * {@link IProductMapper} to map between domain models and JPA entities, ensuring a clear
  * separation of concerns in alignment with the hexagonal architecture.
  * <p>
  * This class is registered as a Spring {@code @Repository} component.
@@ -19,17 +19,17 @@ import org.springframework.stereotype.Repository;
 public class ProductCrudRepositoryImpl implements IProductRepository {
 
     private final IProductCrudRepository iProductCrudRepository;
-    private final ProductMapper productMapper;
+    private final IProductMapper iProductMapper;
 
     /**
      * Constructs a new repository implementation.
      *
      * @param iProductCrudRepository the Spring Data CRUD repository for products
-     * @param productMapper the mapper responsible for converting between domain and entity models
+     * @param iProductMapper the mapper responsible for converting between domain and entity models
      */
-    public ProductCrudRepositoryImpl(IProductCrudRepository iProductCrudRepository, ProductMapper productMapper) {
+    public ProductCrudRepositoryImpl(IProductCrudRepository iProductCrudRepository, IProductMapper iProductMapper) {
         this.iProductCrudRepository = iProductCrudRepository;
-        this.productMapper = productMapper;
+        this.iProductMapper = iProductMapper;
     }
 
     /**
@@ -43,7 +43,7 @@ public class ProductCrudRepositoryImpl implements IProductRepository {
      */
     @Override
     public Product save(Product product) {
-        return productMapper.toProduct(iProductCrudRepository.save(productMapper.toProductEntity(product)));
+        return iProductMapper.toProduct(iProductCrudRepository.save(iProductMapper.toProductEntity(product)));
     }
 
     /**
@@ -53,7 +53,7 @@ public class ProductCrudRepositoryImpl implements IProductRepository {
      */
     @Override
     public Iterable<Product> findAll() {
-        return productMapper.toProducts(iProductCrudRepository.findAll());
+        return iProductMapper.toProducts(iProductCrudRepository.findAll());
     }
 
     /**
@@ -67,7 +67,7 @@ public class ProductCrudRepositoryImpl implements IProductRepository {
      */
     @Override
     public Product findById(Integer id) {
-        return productMapper.toProduct(iProductCrudRepository.findById(id).orElseThrow(
+        return iProductMapper.toProduct(iProductCrudRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Producto con Id:" + id + " no existe.")
         ));
     }

@@ -14,7 +14,7 @@ import org.mapstruct.Mapper;
  * as a Spring component.
  */
 @Mapper(componentModel = "spring")
-public interface CategoryMapper {
+public interface ICategoryMapper {
 
     /**
      * Converts a {@link CategoryEntity} to a {@link Category} domain model.

@@ -2,7 +2,7 @@ package com.juanlopez.ecommerce.backend.infrastructure.adapter;
 
 import com.juanlopez.ecommerce.backend.domain.model.User;
 import com.juanlopez.ecommerce.backend.domain.port.IUserRepository;
-import com.juanlopez.ecommerce.backend.infrastructure.mapper.UserMapper;
+import com.juanlopez.ecommerce.backend.infrastructure.mapper.IUserMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,24 +10,24 @@ import org.springframework.stereotype.Repository;
  * <p>
  * Acts as an adapter between the domain layer and the persistence layer.
  * Handles CRUD operations for {@link User} entities and maps them
- * between domain and database representations using {@link UserMapper}.
+ * between domain and database representations using {@link IUserMapper}.
  */
 @Repository
 public class UserCrudRepositoryImpl implements IUserRepository {
 
     private final IUserCrudRepository iUserCrudRepository;
-    private final UserMapper userMapper;
+    private final IUserMapper iUserMapper;
 
     /**
      * Constructs a new {@code UserCrudRepositoryImpl} with the given
      * JPA repository and mapper.
      *
      * @param iUserCrudRepository the Spring Data repository for User entities
-     * @param userMapper the mapper to convert between domain and entity objects
+     * @param iUserMapper the mapper to convert between domain and entity objects
      */
-    public UserCrudRepositoryImpl(IUserCrudRepository iUserCrudRepository, UserMapper userMapper) {
+    public UserCrudRepositoryImpl(IUserCrudRepository iUserCrudRepository, IUserMapper iUserMapper) {
         this.iUserCrudRepository = iUserCrudRepository;
-        this.userMapper = userMapper;
+        this.iUserMapper = iUserMapper;
     }
 
     /**
@@ -38,7 +38,7 @@ public class UserCrudRepositoryImpl implements IUserRepository {
      */
     @Override
     public User save(User user) {
-        return userMapper.toUser(iUserCrudRepository.save(userMapper.toUserEntity(user)));
+        return iUserMapper.toUser(iUserCrudRepository.save(iUserMapper.toUserEntity(user)));
     }
 
     /**
@@ -64,7 +64,7 @@ public class UserCrudRepositoryImpl implements IUserRepository {
      */
     @Override
     public User findById(Integer id) {
-        return userMapper.toUser(iUserCrudRepository.findById(id).orElseThrow(
+        return iUserMapper.toUser(iUserCrudRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("El usuario con id: " + id + " no existe.")
         ));
     }

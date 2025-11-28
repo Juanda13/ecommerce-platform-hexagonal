@@ -2,7 +2,7 @@ package com.juanlopez.ecommerce.backend.infrastructure.adapter;
 
 import com.juanlopez.ecommerce.backend.domain.model.Category;
 import com.juanlopez.ecommerce.backend.domain.port.ICategoryRepository;
-import com.juanlopez.ecommerce.backend.infrastructure.mapper.CategoryMapper;
+import com.juanlopez.ecommerce.backend.infrastructure.mapper.ICategoryMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,24 +10,24 @@ import org.springframework.stereotype.Repository;
  * <p>
  * Acts as an adapter between the domain layer and the persistence layer.
  * Handles CRUD operations for {@link Category} entities and maps them
- * between domain and database representations using {@link CategoryMapper}.
+ * between domain and database representations using {@link ICategoryMapper}.
  */
 @Repository
 public class CategoryCrudRepositoryImpl implements ICategoryRepository {
 
     private final ICategoryCrudRepository iCategoryCrudRepository;
-    private final CategoryMapper categoryMapper;
+    private final ICategoryMapper iCategoryMapper;
 
     /**
      * Constructs a new {@code CategoryCrudRepositoryImpl} with the given
      * JPA repository and mapper.
      *
      * @param iCategoryCrudRepository the Spring Data repository for Category entities
-     * @param categoryMapper the mapper to convert between domain and entity objects
+     * @param iCategoryMapper the mapper to convert between domain and entity objects
      */
-    public CategoryCrudRepositoryImpl(ICategoryCrudRepository iCategoryCrudRepository, CategoryMapper categoryMapper) {
+    public CategoryCrudRepositoryImpl(ICategoryCrudRepository iCategoryCrudRepository, ICategoryMapper iCategoryMapper) {
         this.iCategoryCrudRepository = iCategoryCrudRepository;
-        this.categoryMapper = categoryMapper;
+        this.iCategoryMapper = iCategoryMapper;
     }
 
     /**
@@ -38,7 +38,7 @@ public class CategoryCrudRepositoryImpl implements ICategoryRepository {
      */
     @Override
     public Category save(Category category) {
-        return categoryMapper.toCategory(iCategoryCrudRepository.save(categoryMapper.toCategoryEntity(category)));
+        return iCategoryMapper.toCategory(iCategoryCrudRepository.save(iCategoryMapper.toCategoryEntity(category)));
     }
 
     /**
@@ -48,7 +48,7 @@ public class CategoryCrudRepositoryImpl implements ICategoryRepository {
      */
     @Override
     public Iterable<Category> findAll() {
-        return categoryMapper.toCategories(iCategoryCrudRepository.findAll());
+        return iCategoryMapper.toCategories(iCategoryCrudRepository.findAll());
     }
 
     /**
@@ -60,7 +60,7 @@ public class CategoryCrudRepositoryImpl implements ICategoryRepository {
      */
     @Override
     public Category findById(Integer id) {
-        return categoryMapper.toCategory(iCategoryCrudRepository.findById(id).orElseThrow(
+        return iCategoryMapper.toCategory(iCategoryCrudRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Categoría con id: " + id + " no existe.")
         ));
     }

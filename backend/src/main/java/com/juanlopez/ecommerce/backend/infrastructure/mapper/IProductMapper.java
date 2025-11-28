@@ -18,7 +18,7 @@ import org.mapstruct.Mapping;
  * The mapper is registered as a Spring bean through {@code componentModel = "spring"}.
  */
 @Mapper(componentModel = "spring")
-public interface ProductMapper {
+public interface IProductMapper {
 
     /**
      * Converts a {@link ProductEntity} into a domain {@link Product}.
