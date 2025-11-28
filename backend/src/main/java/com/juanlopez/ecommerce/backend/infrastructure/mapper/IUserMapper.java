@@ -14,7 +14,7 @@ import org.mapstruct.Mapper;
  * as a Spring component.
  */
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public interface IUserMapper {
 
     /**
      * Converts a {@link UserEntity} to a {@link User} domain model.
