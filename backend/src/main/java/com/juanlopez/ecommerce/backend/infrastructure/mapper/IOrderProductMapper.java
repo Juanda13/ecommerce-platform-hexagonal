@@ -46,6 +46,6 @@ public interface IOrderProductMapper {
      * @return The mapped JPA entity.
      */
     @InheritInverseConfiguration
-    OrderProductEntity toProductEntity(OrderProduct orderProduct);
+    OrderProductEntity toOrderProductEntity(OrderProduct orderProduct);
 
 }

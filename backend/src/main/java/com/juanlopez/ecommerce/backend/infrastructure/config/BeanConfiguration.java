@@ -1,9 +1,11 @@
 package com.juanlopez.ecommerce.backend.infrastructure.config;
 
 import com.juanlopez.ecommerce.backend.application.CategoryService;
+import com.juanlopez.ecommerce.backend.application.OrderService;
 import com.juanlopez.ecommerce.backend.application.ProductService;
 import com.juanlopez.ecommerce.backend.application.UserService;
 import com.juanlopez.ecommerce.backend.domain.port.ICategoryRepository;
+import com.juanlopez.ecommerce.backend.domain.port.IOrderRepository;
 import com.juanlopez.ecommerce.backend.domain.port.IProductRepository;
 import com.juanlopez.ecommerce.backend.domain.port.IUserRepository;
 import org.springframework.context.annotation.Bean;
@@ -55,6 +57,19 @@ public class BeanConfiguration {
     @Bean
     public ProductService productService(IProductRepository iProductRepository) {
         return new ProductService(iProductRepository);
+    }
+
+    /**
+     * Defines an {@link OrderService} bean.
+     * <p>
+     * Injects an implementation of {@link IOrderRepository} into the service.
+     *
+     * @param iOrderRepository the repository to be injected into the service
+     * @return a new instance of {@link OrderService}
+     */
+    @Bean
+    public OrderService orderService(IOrderRepository iOrderRepository) {
+        return new OrderService(iOrderRepository);
     }
 
 }

@@ -6,6 +6,7 @@ import com.juanlopez.ecommerce.backend.infrastructure.entity.UserEntity;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -29,11 +30,12 @@ public interface IOrderCrudRepository extends CrudRepository<OrderEntity, Intege
      *
      * @param id    The identifier of the order to update.
      * @param state The new {@link OrderState} to be applied.
+     * Note: @Param annotations are used to bind method parameters to JPQL named parameters.
      */
     @Transactional
     @Modifying
-    @Query("UPDATE OrderEntity o SET o.state = : state WHERE o.id = :id")
-    void updateStateById(Integer id, OrderState state);
+    @Query("UPDATE OrderEntity o SET o.orderState = :state WHERE o.id = :id")
+    void updateStateById(@Param("id") Integer id, @Param("state") OrderState state);
 
     /**
      * Retrieves all orders associated with the given user entity.
